@@ -21,6 +21,10 @@ Before building the source, make sure your system meets the following requiremen
 - A 32-bit or 64-bit Linux system.
 - 300MB of free disk space.
 
+## Ubuntu ##
+
+Ubuntu packages can be found at this ppa: https://code.launchpad.net/~mouse256/+archive/ubuntu/ppa (use "apt-add-repository ppa:mouse256/ppa" to activate)
+
 ## Building ##
 
 You can build the open source version using the `build.sh` script. This script takes one argument to specify the directory to which the resulting artifacts will be copied.
