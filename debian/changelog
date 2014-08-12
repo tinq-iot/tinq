@@ -1,3 +1,9 @@
+tinq-c (1.0.0-2) precise; urgency=low
+
+  * Fixed forwarder library dependency
+
+ -- Tom Billiet <tom@muizenhol.dyndns.org>  Tue, 12 Aug 2014 20:49:31 +0200
+
 tinq-c (1.0.0-1) unstable; urgency=low
 
   * DDS native security

@@ -41,6 +41,7 @@ global:
     qeocore_fwdfactory_new;
     qeocore_fwdfactory_set_public_locator;
     qeocore_fwdfactory_close;
+    qeocore_parameter_set;
     
     /* qeo_identity.h */
     qeocore_get_identities;

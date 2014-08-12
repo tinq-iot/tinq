@@ -4,7 +4,7 @@ Maintainer: Tom Billiet <mouse256@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), pkg-config, libjansson-dev, libssl-dev, libcurl4-openssl-dev
 Standards-Version: 3.9.2
 Section: libs
-Homepage: https://github.com/brunodebus/tinq-core
+Homepage: https://github.com/mouse256/tinq-core
 #Vcs-Git: git://git.debian.org/collab-maint/tinq-c.git
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/tinq-c.git;a=summary
 

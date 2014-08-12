@@ -8,7 +8,7 @@ qeo-forwarder_CFLAGS   :=
 qeo-forwarder_LIBS     := -lqeoforwarder
 qeo-forwarder_LIBS     += $$(miniupnpc_LIBS)
 ifndef JNIBUILD
-qeo-forwarder_LIBS     += $$(qeo-native_LIBS)
+qeo-forwarder_LIBS     += $$(qeo-c-core_LIBS)
 else
 qeo-forwarder_LIBS     += $$(qeo-java_LIBS)
 endif
@@ -16,7 +16,7 @@ endif
 qeo-forwarder_PARTS_INSTALL := qeo-forwarder@$$(bindir/)qeo-forwarder:755\
 	libqeoforwarder.so@$$(libdir/)libqeoforwarder.so:755
 ifndef JNIBUILD
-qeo-forwarder_DEPS          := qeo-native miniupnpc
+qeo-forwarder_DEPS          := qeo-c-core miniupnpc
 else
 qeo-forwarder_DEPS          := qeo-java miniupnpc
 endif
@@ -29,7 +29,7 @@ ifndef JNIBUILD
 #regular build
 qeo-forwarder.libqeoforwarder_LDADD         := $(qeo-native_LIBS) $(miniupnpc_LIBS)
 qeo-forwarder.libqeoforwarder_LOCALDEFINES  := $(qeo-native_CFLAGS) $(miniupnpc_CFLAGS) -Wall -Werror
-qeo-forwarder.libqeoforwarder_LOCALINCLUDES := $(qeo-native_INCLUDES) $(miniupnpc_INCLUDES) api/headers
+qeo-forwarder.libqeoforwarder_LOCALINCLUDES := $(qeo-c-core_INCLUDES) $(miniupnpc_INCLUDES) api/headers
 else
 #JNI build
 qeo-forwarder.libqeoforwarder_LDADD         := $(qeo-java_LIBS) $(miniupnpc_LIBS)
