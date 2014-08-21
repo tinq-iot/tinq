@@ -2,13 +2,13 @@ tinq-c (1.0.0-3) precise; urgency=low
 
   * Added dependency from tinq-c-dev on tinq-dds-dev 
 
- -- Tom Billiet <tom@muizenhol.dyndns.org>  Thu, 21 Aug 2014 10:47:05 +0200
+ -- Tom Billiet <mouse256@gmail.com>  Thu, 21 Aug 2014 10:47:05 +0200
 
 tinq-c (1.0.0-2) precise; urgency=low
 
   * Fixed forwarder library dependency
 
- -- Tom Billiet <tom@muizenhol.dyndns.org>  Tue, 12 Aug 2014 20:49:31 +0200
+ -- Tom Billiet <mouse256@gmail.com>  Tue, 12 Aug 2014 20:49:31 +0200
 
 tinq-c (1.0.0-1) unstable; urgency=low
 
