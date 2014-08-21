@@ -1,3 +1,9 @@
+tinq-c (1.0.0-4) precise; urgency=low
+
+  * Added dependency on libcurl-dev and jansson-dev
+
+ -- Tom Billiet <mouse256@gmail.com>  Thu, 21 Aug 2014 21:35:41 +0200
+
 tinq-c (1.0.0-3) precise; urgency=low
 
   * Added dependency from tinq-c-dev on tinq-dds-dev 
