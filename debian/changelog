@@ -1,3 +1,9 @@
+tinq-c (1.0.0-3) precise; urgency=low
+
+  * Added dependency from tinq-c-dev on tinq-dds-dev 
+
+ -- Tom Billiet <tom@muizenhol.dyndns.org>  Thu, 21 Aug 2014 10:47:05 +0200
+
 tinq-c (1.0.0-2) precise; urgency=low
 
   * Fixed forwarder library dependency
