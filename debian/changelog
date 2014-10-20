@@ -1,3 +1,9 @@
+tinq-c (1.0.2-1) precise; urgency=medium
+
+  * Upstream update
+
+ -- Tom Billiet <mouse256@gmail.com>  Mon, 20 Oct 2014 22:17:22 +0200
+
 tinq-c (1.0.0-4) precise; urgency=low
 
   * Added dependency on libcurl-dev and jansson-dev
