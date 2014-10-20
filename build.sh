@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 # Copyright (c) 2014 - Qeo LLC
 #
 # The source code form of this Qeo Open Source Project component is subject
