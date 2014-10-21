@@ -65,67 +65,9 @@ if (artiOverlay && tasks.findByPath("uploadOverlay") == null) { //make sure to a
 
             logger.debug("Applying Artifactory maven repo")
 allprojects {
-    if (System.env.ARTIFACTORY_URL == null) {
-		rootProject.ext.artifactoryResolveRepo = 'http://artifactory.edegem.eu.thmulti.com/artifactory'
-	}
-	else {
-		rootProject.ext.artifactoryResolveRepo = System.env.ARTIFACTORY_URL
-	}
-    rootProject.ext.artifactoryResolveRepo += '/qeo-libs-snapshot'
-    if (System.env.BUILDINFO_PROPFILE != null) {
-        //artifactory-jenkins plugin is active
-        def props = new Properties();
-        new File(System.env.BUILDINFO_PROPFILE).withInputStream {
-            props.load(it)
-        }
-        rootProject.ext.artifactoryResolveRepo = props.getProperty("artifactory.resolve.contextUrl") + "/" + props.getProperty("artifactory.resolve.repoKey")
-        logger.info("Artifactory resolve url set by jenkins to: ${rootProject.artifactoryResolveRepo}")
-        rootProject.ext.artifactoryPublishRepo = props.getProperty("artifactory.publish.contextUrl") + "/" + props.getProperty("artifactory.publish.repoKey")
-        if (props.getProperty("artifactory.publish.username") != null) {
-            rootProject.ext.artifactoryPublishUsername = props.getProperty("artifactory.publish.username")
-    		logger.debug("Artifcatory publish user: ${rootProject.artifactoryPublishUsername}")
-        }
-        if (props.getProperty("artifactory.publish.password") != null) {
-            rootProject.ext.artifactoryPublishPassword = props.getProperty("artifactory.publish.password")
-        }
+    repositories {
+        mavenCentral()
     }
-    def releaseRepo = null
-    if (rootProject.artifactoryResolveRepo.endsWith("qeo-libs-snapshot")) {
-        releaseRepo = rootProject.artifactoryResolveRepo.replaceAll("qeo-libs-snapshot", "qeo-libs-release")
-    }
-    
-    /** Define where we should resolve our dependencies. **/
-    if (project.hasProperty("artifactoryDeferLoading") && project.artifactoryDeferLoading) {
-        logger.debug("${project.name}: Defer applying of Artifactory maven repo on request")
-        //some projects (eg android) also define maven repositories which you want to be added before the generic artifactory repo. Hence this option.
-        afterEvaluate {
-            logger.debug("${project.name}: Applying Artifactory maven repo")
-            repositories {
-                if (releaseRepo != null) {
-                    maven {
-                        url releaseRepo
-                    }
-                }
-                maven {
-		            url rootProject.artifactoryResolveRepo
-                }
-	        }
-        }
-    }
-    else {
-        logger.debug("${project.name}: Applying Artifactory maven repo")
-        repositories {
-            if (releaseRepo != null) {
-	            maven {
-                    url releaseRepo
-                }
-            }
-            maven {
-		        url rootProject.artifactoryResolveRepo
-            }
-	    }
-    }
-
 }
 
 //extract git info from a repo
