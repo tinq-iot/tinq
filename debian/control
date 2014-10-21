@@ -1,7 +1,7 @@
 Source: tinq-c
 Priority: extra
 Maintainer: Tom Billiet <mouse256@gmail.com>
-Build-Depends: debhelper (>= 8.0.0), pkg-config, libjansson-dev, libssl-dev, libcurl4-openssl-dev
+Build-Depends: debhelper (>= 8.0.0), pkg-config, libjansson-dev, libssl-dev, libcurl4-openssl-dev, gradle
 Standards-Version: 3.9.2
 Section: libs
 Homepage: https://github.com/mouse256/tinq-core
@@ -49,4 +49,11 @@ Architecture: any
 Depends: tinq-c (= ${binary:Version})
 Description: publish-subscribe software framework internet proxy
   Utility to enable tinq traffic over the internet
+
+Package: tinq-codegen
+Section: libs
+Architecture: any
+Depends: default-jre, libcommons-cli-java, velocity
+Description: CodeGen for tinq
+  Java based tool to generate c/java template code for tinq
 

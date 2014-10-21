@@ -35,7 +35,7 @@ task executableJar(type: Jar) {
     doFirst {
         from files(sourceSets.main.output.classesDir)
         from files(sourceSets.main.output.resourcesDir)
-        from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+//        from configurations.runtime.asFileTree.files.collect { zipTree(it) }
         classifier "executable"
 
         manifest {

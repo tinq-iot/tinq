@@ -4,6 +4,7 @@ debian/tinq-c-dev
 debian/tinq-dds-dev
 debian/tinq-dds
 debian/tinq-forwarder
+debian/tinq-codegen
 debian/*.log
 debian/*.debhelper
 debian/*.substvars
@@ -11,3 +12,7 @@ debian/files
 qeo-c/qeo-c/install/
 qeo-c-import/miniupnpc/miniupnpcstrings.h
 qeo-c/qeo-forwarder/install/
+qeo-codegen/qeo-codegen/build
+qeo-codegen/qeo-codegen-test/build
+.gradle
+*.swp

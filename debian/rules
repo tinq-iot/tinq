@@ -18,6 +18,7 @@ export qeo-openssl-engine-pkcs12_MAJOR_VERSION := 0
 QEO-C_SRC:=qeo-c/qeo-c
 QEO-FORWARDER_SRC:=qeo-c/qeo-forwarder
 DDS_SRC:=dds
+QEO-CODEGEN_SRC:=qeo-codegen
 
 TINQ-C_INSTALL:=debian/tinq-c
 TINQ-C-DEV_INSTALL:=debian/tinq-c-dev
@@ -33,6 +34,7 @@ MAKE_CMD:=make -f Makefile_component
 override_dh_auto_build:
 	cd ${QEO-C_SRC} && ${MAKE_CMD} prefix=usr INSTALL_DIR=install recursive_devel_install
 	cd ${QEO-FORWARDER_SRC} && ${MAKE_CMD} prefix=usr INSTALL_DIR=install recursive_devel_install
+	cd ${QEO-CODEGEN_SRC} && gradle assemble
 
 override_dh_auto_install:
 	#install qeo
