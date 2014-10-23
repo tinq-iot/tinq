@@ -31,6 +31,7 @@ Package: tinq-c
 Section: libs
 Architecture: any
 Depends: tinq-dds (= ${binary:Version}), openssl, curl
+Recommends: tinq-codegen
 Description: publish-subscribe software framework
  Tinq is a software framework that allows devices to easily exchange data
  with other devices on the same network based on a publish-subscribe paradigm

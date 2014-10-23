@@ -25,8 +25,10 @@ TINQ-C-DEV_INSTALL:=debian/tinq-c-dev
 DDS_INSTALL:=debian/tinq-dds
 DDS-DEV_INSTALL:=debian/tinq-dds-dev
 TINQ-FORWARDER_INSTALL:=debian/tinq-forwarder
+TINQ-CODEGEN_INSTALL:=debian/tinq-codegen
 
 MAKE_CMD:=make -f Makefile_component
+CWD:=$(shell pwd)
 
 %:
 	dh $@ 
@@ -34,7 +36,7 @@ MAKE_CMD:=make -f Makefile_component
 override_dh_auto_build:
 	cd ${QEO-C_SRC} && ${MAKE_CMD} prefix=usr INSTALL_DIR=install recursive_devel_install
 	cd ${QEO-FORWARDER_SRC} && ${MAKE_CMD} prefix=usr INSTALL_DIR=install recursive_devel_install
-	cd ${QEO-CODEGEN_SRC} && gradle assemble
+	cd ${QEO-CODEGEN_SRC} && gradle executableJar -DqeoGradleHelper=${CWD}/gradle-helper
 
 override_dh_auto_install:
 	#install qeo
@@ -85,4 +87,9 @@ override_dh_auto_install:
 	ln -s qeo-forwarder ${TINQ-FORWARDER_INSTALL}/usr/bin/tinq-forwarder
 	cp qeo-c/qeo-forwarder/install/usr/lib/libqeoforwarder.so ${TINQ-FORWARDER_INSTALL}/usr/lib
 	cp qeo-c/qeo-forwarder/install/usr/lib/libminiupnpc.so ${TINQ-FORWARDER_INSTALL}/usr/lib
+	#install codegen
+	mkdir -p ${TINQ-CODEGEN_INSTALL}/usr/share/java
+	cp qeo-codegen/qeo-codegen/build/libs/qeo-codegen-*-executable.jar ${TINQ-CODEGEN_INSTALL}/usr/share/java/tinq-codegen.jar
+	mkdir -p ${TINQ-CODEGEN_INSTALL}/usr/bin
+	cp qeo-codegen/qeo-codegen/tinq-codegen ${TINQ-CODEGEN_INSTALL}/usr/bin
 

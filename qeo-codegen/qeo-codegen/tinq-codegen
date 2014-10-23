@@ -1,4 +1,4 @@
 #!/bin/bash
 
-java -cp /usr/share/java/commons-cli-1.2.jar:build/libs/qeo-codegen-0.19.0-SNAPSHOT-executable.jar:/usr/share/java/velocity.jar:/usr/share/java/commons-collections3.jar:/usr/share/java/commons-collections3.jar:/usr/share/java/commons-lang.jar com.technicolor.qeo.codegen.Main $@
+java -cp /usr/share/java/tinq-codegen.jar:/usr/share/java/commons-cli-1.2.jar:/usr/share/java/velocity.jar:/usr/share/java/commons-collections3.jar:/usr/share/java/commons-collections3.jar:/usr/share/java/commons-lang.jar com.technicolor.qeo.codegen.Main $@
 
