@@ -58,10 +58,17 @@ test {
     }
 }
 
+def libs = ["/usr/share/java/commons-cli-1.2.jar", "/usr/share/java/velocity.jar", "/usr/share/java/commons-collections3.jar", "/usr/share/java/commons-lang.jar"]
+
 dependencies {
-    compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
-    compile group: 'commons-cli', name: 'commons-cli', version: '1.2'
-    testCompile 'junit:junit:4.11'
+    libs.each {
+        File f = file(it)
+        assert(f.exists())
+        compile(files(f))
+    }
+//    compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
+//    compile group: 'commons-cli', name: 'commons-cli', version: '1.2'
+//    testCompile 'junit:junit:4.11'
 }
 
 artifacts {
