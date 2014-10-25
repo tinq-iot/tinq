@@ -1,7 +1,7 @@
 Source: tinq-c
 Priority: extra
 Maintainer: Tom Billiet <mouse256@gmail.com>
-Build-Depends: debhelper (>= 8.0.0), pkg-config, libjansson-dev, libssl-dev, libcurl4-openssl-dev, gradle, libcommons-cli-java, velocity, libcommons-collections3-java, libcommons-lang-java
+Build-Depends: debhelper (>= 8.0.0), pkg-config, libjansson-dev, libssl-dev, libcurl4-openssl-dev, gradle, libcommons-cli-java, velocity, libcommons-collections3-java, libcommons-lang-java, default-jdk
 Standards-Version: 3.9.2
 Section: libs
 Homepage: https://github.com/mouse256/tinq-core
