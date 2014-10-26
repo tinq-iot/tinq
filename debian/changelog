@@ -1,3 +1,9 @@
+tinq-c (1.0.2-2) precise; urgency=medium
+
+  * Fix codegen build for 12.04
+
+ -- Tom Billiet <mouse256@gmail.com>  Sun, 26 Oct 2014 21:02:25 +0100
+
 tinq-c (1.0.2-1) precise; urgency=medium
 
   * Upstream update

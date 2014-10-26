@@ -1,6 +1,5 @@
 // The stupid artifactory plugin seems to assume that everyone just applies this plugin!!!
 allprojects {
-    apply plugin: 'maven'
 /* Does not work on every project. */
 //  apply from: '/licenseSummary.gradle'
     ext.qeoReleaseVersion = "1.0.0-SNAPSHOT" //NOTE: left on 1.0.0 for this release as 1.0.1 only had the forwarder released and nothing else. To be corrected in next full release
@@ -51,6 +50,7 @@ if (artiOverlay && tasks.findByPath("uploadOverlay") == null) { //make sure to a
             }
         }
 
+/*
         task (uploadOverlay, type:Upload) {
             description "Uploads archives to the overlay at '$artiOverlay'"
             configuration = project.configurations.archives
@@ -60,6 +60,7 @@ if (artiOverlay && tasks.findByPath("uploadOverlay") == null) { //make sure to a
                 }
             }
         }
+*/
     }
 }
 
