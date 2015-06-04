@@ -15,7 +15,7 @@ if (createDoxygen) {
         dependsOn mwbuildTgzHOSTLINUX
         workingDir doxygenRoot
         environment PROJECT_ROOT: projectDir
-        commandLine = ['/home/users/cpeqeo/tools/bin/doxygen', file("Doxyfile.sdk")]
+        commandLine = ['doxygen', file("Doxyfile.sdk")]
     }
     
     task sdkDoc(type:Zip) {

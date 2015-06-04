@@ -25,6 +25,11 @@ if [ $# -ne 1 ]; then
     syntax
 fi
 
+if [ ! -d "${ANDROID_NDK}" ]; then
+    echo "Please set ANDROID_NDK to point to an android NDK" >&2
+    exit 1
+fi
+
 GRADLE="gradle -DqeoGradleHelper=$SELF_DIR/gradle-helper -Dartifactory-overlay=$SELF_DIR/$1/maven-repo -DqeoUseMavenCentral=1"
 
 mkdir -p $SELF_DIR/$1

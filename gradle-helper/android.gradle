@@ -25,9 +25,7 @@ ext.androidSdkVersion = 21
 
 buildscript {
     repositories {
-        maven {
-            url rootProject.artifactoryResolveRepo
-        }
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.0.1'

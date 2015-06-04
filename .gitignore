@@ -15,3 +15,5 @@ qeo-codegen/qeo-codegen/build/
 qeo-codegen/qeo-codegen-test/build/
 *.swp
 .gradle
+build/
+

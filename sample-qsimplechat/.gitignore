@@ -1,0 +1,5 @@
+output/
+QSimpleChat_ChatMessage.c
+QSimpleChat_ChatMessage.h
+QSimpleChat_ChatParticipant.c
+QSimpleChat_ChatParticipant.h
