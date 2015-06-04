@@ -1,8 +1,8 @@
 // The stupid artifactory plugin seems to assume that everyone just applies this plugin!!!
 allprojects {
     apply plugin: 'maven'
-    ext.qeoReleaseVersion = "1.0.2-SNAPSHOT"
-    ext.qeoLatestVersion = "1.0.3-SNAPSHOT"
+    ext.qeoReleaseVersion = "1.0.4-SNAPSHOT"
+    ext.qeoLatestVersion = "1.1.0-SNAPSHOT"
     ext.qeoVersion = System.getProperty('qeoVersion') ?: ext.qeoLatestVersion
     ext.qeoGroup = System.getProperty('qeoGroup') ?: "org.qeo"
     ext.qeoGroupDefault = qeoGroup
@@ -24,18 +24,18 @@ if (project.hasProperty("BRANCH") && BRANCH != "" && BRANCH != "master") {
  **/
 def artiOverlay = System.getProperty('artifactory-overlay') ?: System.env.ARTIFACTORY_OVERLAY
 if (artiOverlay && tasks.findByPath("uploadOverlay") == null) { //make sure to add this logic only once
-  def artiURL = "file:///${artiOverlay}"
+    def artiURL = "file:///${artiOverlay}"
 
-  project.fileTree(artiOverlay).include('**/*.pom').files.collect{it.parentFile.parentFile.name}.unique().each {
-    logger.warn("Warning: ${it} will be fetched from $artiOverlay")
-  }
+    project.fileTree(artiOverlay).include('**/*.pom').files.collect{it.parentFile.parentFile.name}.unique().each {
+        logger.warn("Warning: ${it} will be fetched from $artiOverlay")
+    }
 
     allprojects {
         if (project.hasProperty("artifactoryDeferLoading") && project.artifactoryDeferLoading) {
             //some projects (eg android) also define maven repositories which you want to be added before the generic artifactory repo. Hence this option.
             afterEvaluate {
                 repositories {
-    	            maven {
+                    maven {
                         url artiURL
                     }
                 }
@@ -43,7 +43,7 @@ if (artiOverlay && tasks.findByPath("uploadOverlay") == null) { //make sure to a
         }
         else {
             repositories {
-    	        maven {
+                maven {
                     url artiURL
                 }
             }
@@ -63,7 +63,6 @@ if (artiOverlay && tasks.findByPath("uploadOverlay") == null) { //make sure to a
     }
 }
 
-            logger.debug("Applying Artifactory maven repo")
 allprojects {
     repositories {
         mavenCentral()
@@ -97,7 +96,7 @@ Map getGitDetails(File workspace, File path)
       remote = out.toString()
     }
     //fiter out a line like this:
-    //origin    git@gitolite.edegem:/pub/billiett/repo1.git (fetch)
+    //origin    git@example.com:/some/repo.git (fetch)
     def m = remote =~ /(.*)\s+(\S+)\s+\(fetch\)(.*)/
     remote = m[0][2]
 
@@ -184,28 +183,28 @@ Map getGitInfoRec(File root, File dir = null, int level = 0)
 }
 
 allprojects {
-	if (System.env.WORKSPACE != null) {
-	    //jenkins workspace defined
-	    if (tasks.findByPath("artifactoryPublish") != null) {
-	        //gradle-artifactory plugin active
-	        artifactoryPublish {
-	            
-				if (!rootProject.hasProperty("gitProperties")) {
-					//avoid fetching the info multiple times in subprojects
-					rootProject.ext.gitProperties = getGitInfo();
-					rootProject.ext.gitPropertiesSet = []
-				}
+    if (System.env.WORKSPACE != null) {
+        //jenkins workspace defined
+        if (tasks.findByPath("artifactoryPublish") != null) {
+            //gradle-artifactory plugin active
+            artifactoryPublish {
+                
+                if (!rootProject.hasProperty("gitProperties")) {
+                    //avoid fetching the info multiple times in subprojects
+                    rootProject.ext.gitProperties = getGitInfo();
+                    rootProject.ext.gitPropertiesSet = []
+                }
 
-				if (!rootProject.gitPropertiesSet.contains(project.getName())) {
-					//avoid setting properties twice if the artifactory file is included multiple times
-					rootProject.gitPropertiesSet.add(project.getName())
-		            
-					//add git repository information to the buildinfo
-					properties = rootProject.gitProperties
-				}
-	        }
-	    }
-	}
+                if (!rootProject.gitPropertiesSet.contains(project.getName())) {
+                    //avoid setting properties twice if the artifactory file is included multiple times
+                    rootProject.gitPropertiesSet.add(project.getName())
+                    
+                    //add git repository information to the buildinfo
+                    properties = rootProject.gitProperties
+                }
+            }
+        }
+    }
 }
 
 

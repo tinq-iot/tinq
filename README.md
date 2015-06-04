@@ -17,6 +17,7 @@ Before building the source, make sure your system meets the following requiremen
 
 - A 32-bit or 64-bit Linux system.
 - 300MB of free disk space.
+- Gradle version 2.1 or higher
 
 ## Ubuntu ##
 
@@ -24,9 +25,23 @@ Ubuntu packages can be found at this ppa: https://code.launchpad.net/~mouse256/+
 
 ## Building ##
 
-You can build the open source version using the `build.sh` script. This script takes one argument to specify the directory to which the resulting artifacts will be copied.
+You can build the open source version using various build scripts. This script takes one argument to specify the directory to which the resulting artifacts will be copied.
 
-    $ ./build.sh install
+Building qeo-c using make:
+
+    $ ./build_c_make.sh install
+
+Building qeo-c using gradle/make:
+
+    $ ./build_c.sh install
+
+Building qeo-android:
+
+    $ ./build_android.sh install
+
+Building samples: It's required the execute the "build_c.sh" and "build_android.sh" script first.
+
+    $ ./build_samples.sh install
 
 ## Documentation ##
 The Tinq Open Source project Documentation depends heavily on the Qeo Open Source Project Documentation which is made available under the [GNU Free Documentation License V1.3](http://www.gnu.org/licenses/fdl-1.3.en.html).
