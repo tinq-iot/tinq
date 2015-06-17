@@ -1107,7 +1107,7 @@ ifneq ($(strip $($(COMPONENT)_HEADERS_INSTALL)),)
 $(COMPONENT)_HEADERS_INSTALL+=&&
 endif
 
-$(COMPONENT)_HEADERS_INSTALL+=cp -prL $(patsubst %,%/*,$(filter $($(COMPONENT)_COMP_DIR/)api/headers%,$($(COMPONENT)_INTRA_INCLUDES))) $(incdir) && chmod -R +w $(incdir)
+$(COMPONENT)_HEADERS_INSTALL+=$(cp) -prL $(patsubst %,%/*,$(filter $($(COMPONENT)_COMP_DIR/)api/headers%,$($(COMPONENT)_INTRA_INCLUDES))) $(incdir) && chmod -R +w $(incdir)
 endif
 
 ifneq ($(strip $($(COMPONENT)_HEADERS_INSTALL)),)
