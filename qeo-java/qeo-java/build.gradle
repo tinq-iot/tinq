@@ -159,6 +159,14 @@ task javah {
             }
         }
 
+        //hack to make qeo-c output dir point to qeo-java dir
+        project.exec {
+            commandLine("mkdir", "-p", "../../qeo-c/output/gradle")
+        }
+        project.exec {
+            commandLine("ln", "-s", "../../../qeo-java/qeo-java/output/gradle/javah", "../../qeo-c/output/gradle/javah")
+        }
+
         project.exec {
             commandLine("${cmdDir}javah", '-jni', '-classpath', classpath.asPath, '-d', destDir, *classes)
         }
@@ -719,8 +727,8 @@ dependencies {
     testCompile 'junit:junit:3.8.2'
 
     //to be able to generate code for unit tests
-    generated "org.qeo:qeo-qdm:${project.qeoVersion}:@zip"
-    generated "org.qeo:qeo-qdm:${project.qeoVersion}:applications@zip"
+    generated "org.tinq:tinq-qdm:${project.qeoVersion}:@zip"
+    generated "org.tinq:tinq-qdm:${project.qeoVersion}:applications@zip"
 }
 
 artifacts {

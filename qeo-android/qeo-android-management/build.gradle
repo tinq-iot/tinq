@@ -1,6 +1,6 @@
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
 
 //creation of the apk artifacts
 def qeoAndroidManagementDebug = file('build/outputs/apk/qeo-android-management-debug-unaligned.apk')

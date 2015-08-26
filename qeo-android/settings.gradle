@@ -1,4 +1,4 @@
-include 'qeo-android-core', 'qeo-android', 'qeo-android-tests', 'qeo-android-tests-release', 'qeo-android-service', 'qeo-android-management',  'qeo-android-debugconfig', "qeo-android-uitest", "qeo-android-service-embedded", "qeo-android-service-core", "qeo-android-tests-embedded"
+include 'qeo-android-core', 'qeo-android', 'qeo-android-tests', 'qeo-android-tests-release', 'qeo-android-service', 'qeo-android-management',  'qeo-android-debugconfig', "qeo-android-service-embedded", "qeo-android-service-core", "qeo-android-tests-embedded"
 rootProject.name = 'qeo-android-root'
 
 

@@ -16,4 +16,8 @@ qeo-codegen/qeo-codegen-test/build/
 *.swp
 .gradle
 build/
+.tdds_log_*
+.idea
+local.properties
+*.iml
 

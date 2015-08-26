@@ -64,6 +64,6 @@ artifacts {
 }
 
 dependencies {
-    generated "org.qeo:qeo-qdm:${project.qeoVersion}@zip"
+    generated "org.tinq:tinq-qdm:${project.qeoVersion}@zip"
 }
 

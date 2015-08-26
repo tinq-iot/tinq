@@ -1,6 +1,6 @@
 //The artifactory.gradle file will be used as a helper function in order to use the functionality of artifactory.
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidInstallerTools.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/androidInstallerTools.gradle')
 
 //creation of the apk artifacts
 def qeoAndroidConfigDebug = file('build/outputs/apk/qeo-android-debugconfig-debug.apk')

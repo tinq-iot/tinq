@@ -1,5 +1,5 @@
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidInstallerTools.gradle'
+apply from: rootProject.file('../gradle-helper/androidInstallerTools.gradle')
 
 configurations {
     testApkDependencies {

@@ -4,9 +4,9 @@ allprojects {
     ext.qeoReleaseVersion = "1.1.0-SNAPSHOT"
     ext.qeoLatestVersion = "1.1.1-SNAPSHOT"
     ext.qeoVersion = System.getProperty('qeoVersion') ?: ext.qeoLatestVersion
-    ext.qeoGroup = System.getProperty('qeoGroup') ?: "org.qeo"
+    ext.qeoGroup = System.getProperty('qeoGroup') ?: "org.tinq"
     ext.qeoGroupDefault = qeoGroup
-    ext.gradleHelperDir = file(System.properties['qeoGradleHelper'] ?: '')
+    ext.gradleHelperDir = rootProject.file('../gradle-helper')
 }
 
 if (project.hasProperty("BRANCH") && BRANCH != "" && BRANCH != "master") {

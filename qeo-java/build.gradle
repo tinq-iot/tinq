@@ -13,5 +13,6 @@ subprojects {
     if (BRANCH != "" && BRANCH != "master") {
         group += ".branch.${BRANCH}"
     }
+    archivesBaseName = archivesBaseName.replaceAll("qeo", "tinq")
 }
 

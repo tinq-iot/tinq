@@ -3,9 +3,9 @@ ext.androidLibrary = true
 ext.androidPublishJar = true
 ext.javadocExclude = 'org/qeo/android/internal/**'
 //ext.findbugsHtml = true //enable this to genereate findbugs html instead of xml for local development. don't push this!
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
 
 android {
     defaultConfig {

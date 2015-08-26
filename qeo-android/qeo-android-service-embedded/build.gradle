@@ -2,11 +2,11 @@
 //For generating findbugs HTML report execute with "gradle -PfindbugsHtml=true"
 ext.androidLibrary = true
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/dependencyWriter.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidApklib.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
+apply from: rootProject.file('../gradle-helper/dependencyWriter.gradle')
+apply from: rootProject.file('../gradle-helper/androidApklib.gradle')
 
 android {
     publishNonDefault true
