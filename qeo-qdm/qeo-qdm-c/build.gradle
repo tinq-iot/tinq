@@ -1,8 +1,8 @@
 ext.artifactoryPomPackaging = "tgz"
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactoryPom.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/codegen.gradle'
+apply from: rootProject.file('../gradle-helper/artifactoryPom.gradle')
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
+apply from: rootProject.file('../gradle-helper/codegen.gradle')
 
 version = project.qeoVersion
 

@@ -1,5 +1,5 @@
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactoryPom.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
+apply from: rootProject.file('../gradle-helper/artifactoryPom.gradle')
 
 import javax.xml.XMLConstants
 import javax.xml.transform.stream.StreamSource

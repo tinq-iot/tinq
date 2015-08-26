@@ -3,13 +3,9 @@
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/codegen.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-
-//Set JDK source/target to version 6
-sourceCompatibility=1.6
-targetCompatibility=1.6
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
+apply from: rootProject.file('../gradle-helper/codegen.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
 
 eclipse {
     jdt {

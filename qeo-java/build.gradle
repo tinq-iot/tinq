@@ -1,4 +1,4 @@
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
 
 subprojects {
     group = project.qeoGroup
@@ -14,5 +14,11 @@ subprojects {
         group += ".branch.${BRANCH}"
     }
     archivesBaseName = archivesBaseName.replaceAll("qeo", "tinq")
+
+    afterEvaluate {
+        //Set JDK source/target to version 7
+        sourceCompatibility=1.7
+        targetCompatibility=1.7
+    }
 }
 
