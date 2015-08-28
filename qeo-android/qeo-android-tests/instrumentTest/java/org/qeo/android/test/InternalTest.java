@@ -14,16 +14,6 @@
 
 package org.qeo.android.test;
 
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
-
-import org.qeo.android.QeoAndroid;
-import org.qeo.android.internal.IServiceQeoCallback;
-import org.qeo.android.internal.IServiceQeoV1;
-import org.qeo.android.internal.ParcelableData;
-import org.qeo.android.internal.ParcelableException;
-import org.qeo.internal.common.ObjectData;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +23,16 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.test.AndroidTestCase;
 import android.util.Log;
+
+import org.qeo.android.QeoAndroid;
+import org.qeo.android.internal.IServiceQeoCallback;
+import org.qeo.android.internal.IServiceQeoV1;
+import org.qeo.android.internal.ParcelableData;
+import org.qeo.android.internal.ParcelableException;
+import org.qeo.internal.common.ObjectData;
+
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Class to try to test security by using internal functions.
@@ -91,7 +91,7 @@ public class InternalTest
         public void run()
         {
             final Intent intent = new Intent();
-            intent.setClassName(QeoAndroid.QEO_SERVICE_PACKAGE, QeoAndroid.QEO_SERVICE_PACKAGE + ".QeoService");
+            intent.setClassName(QeoAndroid.QEO_SERVICE_PACKAGE, QeoAndroid.QEO_SERVICE_PREFIX + ".QeoService");
             if (!ctx.bindService(intent, binderConnection, Context.BIND_AUTO_CREATE)) {
                 fail("oeps");
             }

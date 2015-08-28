@@ -14,8 +14,13 @@
 
 package org.qeo.android;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RemoteException;
+import android.widget.Toast;
 
 import org.qeo.QeoFactory;
 import org.qeo.android.activity.ServiceInstallActivity;
@@ -29,13 +34,8 @@ import org.qeo.android.internal.ServiceConnection;
 import org.qeo.internal.BaseFactory;
 import org.qeo.system.DeviceId;
 
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.RemoteException;
-import android.widget.Toast;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class should be used for retrieval of a Qeo entity factory for Android.
@@ -49,7 +49,9 @@ public final class QeoAndroid
     public static final String TAG = "Qeo";
 
     /** Packagename of the qeo android service. */
-    public static final String QEO_SERVICE_PACKAGE = "org.qeo.android.service";
+    public static final String QEO_SERVICE_PACKAGE = "org.tinq.android.service";
+    /** Prefix of the qeo android service. */
+    public static final String QEO_SERVICE_PREFIX = "org.qeo.android.service";
 
     private static final Logger LOG = Logger.getLogger(TAG);
     private final QeoConnectionListener mListener;
@@ -119,7 +121,7 @@ public final class QeoAndroid
             QeoAndroid qeo = new QeoAndroid(id, listener, rwAndroid);
             qeoConnection.addFactory(qeo);
         }
-        catch (QeoServiceNotFoundException e) {
+        catch (final QeoServiceNotFoundException e) {
             LOG.info("Qeo service not yet installed");
             if (!listener.onServiceNotInstalled()) {
                 // app did not handle service installation dialog itself, show default.
@@ -142,7 +144,7 @@ public final class QeoAndroid
                 public void run()
                 {
                     // do this in handler thread to make sure the init returns before the callback is called
-                    listener.onQeoError(new QeoServiceNotFoundException());
+                    listener.onQeoError(e);
                 }
             });
 

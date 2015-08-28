@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Qeo Settings</string>
+    <string name="app_name">Tinq Settings</string>
     <string name="info">Please provide Server URL and One Time Code</string>
     <string name="otc">One Time Code:</string>
     <string name="otc_hint">OTC offered by your Qeo Security Server</string>

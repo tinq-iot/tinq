@@ -3,7 +3,7 @@ apply from: rootProject.file('../gradle-helper/android.gradle')
 apply from: rootProject.file('../gradle-helper/androidInstallerTools.gradle')
 
 //creation of the apk artifacts
-def qeoAndroidConfigDebug = file('build/outputs/apk/qeo-android-debugconfig-debug.apk')
+def qeoAndroidConfigDebug = file('build/outputs/apk/tinq-android-debugconfig-debug.apk')
 
 android.noDeviceTests = true //no device tests for this project
 

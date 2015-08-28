@@ -40,8 +40,8 @@ dependencies {
     androidTestCompile group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
 }
 
-File testprogramApk = file("${buildDir}/outputs/apk/qeo-android-tests-debug-unaligned.apk")
-File testsApk = file("${buildDir}/outputs/apk/qeo-android-tests-debug-androidTest-unaligned.apk")
+File testprogramApk = file("${buildDir}/outputs/apk/tinq-android-tests-debug-unaligned.apk")
+File testsApk = file("${buildDir}/outputs/apk/tinq-android-tests-debug-androidTest-unaligned.apk")
 
 artifacts {
     archives jarAndroidClasses //publish classes

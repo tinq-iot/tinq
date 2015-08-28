@@ -2,10 +2,10 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.qeo.android.service"
-    android:sharedUserId="org.qeo.android.service">
+    package="org.tinq.android.service"
+    android:sharedUserId="org.tinq.android.service">
 
-    <uses-sdk android:minSdkVersion="9"/>
+    <uses-sdk android:minSdkVersion="14"/>
 
     <application
         android:name="org.qeo.android.settings.SettingsApplication"

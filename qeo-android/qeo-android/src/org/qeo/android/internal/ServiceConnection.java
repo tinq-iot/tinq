@@ -14,21 +14,21 @@
 
 package org.qeo.android.internal;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Logger;
+import android.app.Application;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
 
 import org.qeo.android.QeoAndroid;
 import org.qeo.android.exception.QeoServiceNotFoundException;
 import org.qeo.android.exception.QeoServiceTooOldException;
 import org.qeo.exception.QeoException;
 
-import android.app.Application;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.os.IBinder;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * The service connection is a singleton that represents the connection between Qeo library for Android and Qeo service.
@@ -40,8 +40,8 @@ public final class ServiceConnection
     private static final String AIDL_INTERFACE_VERSION = AidlConstants.AIDL_SERVICE_ACTION_V1;
     private static final Logger LOG = Logger.getLogger("ServiceConnection");
     private static final Object LOCK = new Object();
-    private static final String SERVICE_QEO = QeoAndroid.QEO_SERVICE_PACKAGE + ".QeoService";
-    private static final String SERVICE_VERSION = QeoAndroid.QEO_SERVICE_PACKAGE + ".QeoServiceVersion";
+    private static final String SERVICE_QEO = QeoAndroid.QEO_SERVICE_PREFIX + ".QeoService";
+    private static final String SERVICE_VERSION = QeoAndroid.QEO_SERVICE_PREFIX + ".QeoServiceVersion";
     private static ServiceConnection sInstance = null;
 
     private final Context mContext;

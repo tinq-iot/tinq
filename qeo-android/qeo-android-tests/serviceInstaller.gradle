@@ -80,7 +80,7 @@ installExtraApk {
 //define which apk's need to be uninstalled
 uninstallApk {
     //uninstall the qeo-android-service package
-    packages = ["org.qeo.android.service"]
+    packages = ["org.tinq.android.service"]
 }
 
 

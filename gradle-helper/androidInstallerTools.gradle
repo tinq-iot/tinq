@@ -27,7 +27,7 @@ task getConnectedDevices << {
 
 //Install a truststore.p12 and corresponding policy file and url to the Qeo android service to bypass OTC prompting
 task installCertFile(dependsOn: getConnectedDevices) {
-    ext.qeoServiceName = "org.qeo.android.service"
+    ext.qeoServiceName = "org.tinq.android.service"
     ext.jarFile = null
     def result = 0
 

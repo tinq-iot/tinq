@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.qeo.android.library.test"
-    android:sharedUserId="org.qeo.android.service"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="org.tinq.android.library.test"
+    android:sharedUserId="org.tinq.android.service"
+    >
 
-    <uses-sdk android:minSdkVersion="9" />
+    <uses-sdk android:minSdkVersion="14" />
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
@@ -23,7 +22,7 @@
             android:name="org.qeo.rest.qeo.client.id"
             android:value="qeo-android-service-test"/>
         <uses-library android:name="android.test.runner" />
-        <service android:name="org.qeo.ProcessService" android:process=":remote" android:exported="true" android:enabled="true"></service>
+        <service android:name="org.qeo.ProcessService" android:process=":remote" android:exported="true" android:enabled="true"/>
     </application>
 
 </manifest>
