@@ -48,7 +48,7 @@ extern qeo_logger_ptr qeo_logger;
 
 // TODO: add time stamp
 
-#if DEBUG == 1
+#if (DEBUG == 1) || (QEO_LOGGING == 1) 
 
 #ifdef OBJC
 #   	define qeo_log_d(format, ...) NSLog(@"D:%s %d %s %s", __FILE__, __LINE__, __PRETTY_FUNCTION__, __FUNCTION__, format, ##__VA_ARGS__);

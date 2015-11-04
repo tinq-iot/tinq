@@ -37,6 +37,9 @@ qeo-forwarder.libqeoforwarder_LOCALDEFINES  := $(qeo-java_CFLAGS) $(miniupnpc_CF
 qeo-forwarder.libqeoforwarder_LOCALINCLUDES := $(qeo-java_INCLUDES) $(qeo-c-core_INCLUDES) $(miniupnpc_INCLUDES) api/headers
 endif
 qeo-forwarder.libqeoforwarder_SRCS          := $(addprefix src/, forwarder.c)
+ifdef QEO_LOGGING
+qeo-forwarder.libqeoforwarder_LOCALDEFINES  += -DQEO_LOGGING
+endif
 
 qeo-forwarder.PROGRAMS = qeo-forwarder
 

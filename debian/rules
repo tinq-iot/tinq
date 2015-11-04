@@ -34,6 +34,7 @@ CWD:=$(shell pwd)
 	dh $@ 
 
 override_dh_auto_build:
+	#add QEO_LOGGING=1 for more verbose build
 	cd ${QEO-C_SRC} && ${MAKE_CMD} prefix=usr INSTALL_DIR=install recursive_devel_install
 	cd ${QEO-FORWARDER_SRC} && ${MAKE_CMD} prefix=usr INSTALL_DIR=install recursive_devel_install
 	cd ${QEO-CODEGEN_SRC} && gradle executableJar -DqeoGradleHelper=${CWD}/gradle-helper
@@ -59,7 +60,8 @@ override_dh_auto_install:
 	cp qeo-c/qeo-c-util/api/headers/qeo/device.h ${TINQ-C-DEV_INSTALL}/usr/include/qeo
 	#install qeo-c-dev pkgconfig
 	mkdir -p ${TINQ-C-DEV_INSTALL}/usr/lib/pkgconfig
-	cp qeo-c/qeo-c/install/usr/lib/pkgconfig/qeo-c.pc ${TINQ-C-DEV_INSTALL}/usr/lib/pkgconfig
+	cp qeo-c/qeo-c/install/usr/lib/pkgconfig/*.pc ${TINQ-C-DEV_INSTALL}/usr/lib/pkgconfig
+	rm ${TINQ-C-DEV_INSTALL}/usr/lib/pkgconfig/dds.pc
 	#install qeo-c-dev libs
 	mkdir -p ${TINQ-C-DEV_INSTALL}/usr/lib
 	ln -s libqeoc.so.0 ${TINQ-C-DEV_INSTALL}/usr/lib/libqeoc.so
