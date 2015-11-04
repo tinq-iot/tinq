@@ -58,7 +58,7 @@ test {
     }
 }
 
-def libs = ["/usr/share/java/commons-cli-1.2.jar", "/usr/share/java/velocity.jar", "/usr/share/java/commons-collections3.jar", "/usr/share/java/commons-lang.jar"]
+def libs = ["/usr/share/java/commons-cli.jar", "/usr/share/java/velocity.jar", "/usr/share/java/commons-collections3.jar", "/usr/share/java/commons-lang.jar"]
 
 dependencies {
     libs.each {
