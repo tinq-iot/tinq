@@ -134,6 +134,16 @@ task javah {
         cmdDir = System.env.JAVA_HOME + "/bin/"
     }
 
+    //hack to make qeo-c output dir point to qeo-java dir
+    project.exec {
+        commandLine("mkdir", "-p", "../../qeo-c/output/gradle")
+    }
+    if (!file("../../qeo-c/output/gradle/javah").exists()) {
+        project.exec {
+            commandLine("ln", "-s", "../../../qeo-java/qeo-java/output/gradle/javah", "../../qeo-c/output/gradle/javah")
+        }
+    }
+
     doFirst {
         ext.destDir.mkdir()
         // Calculate the classpath
@@ -144,14 +154,6 @@ task javah {
             if (it.relativePath.isFile()) {
                 classes.add(it.path.replaceAll(/\.java$/,'').replaceAll('/','.'))
             }
-        }
-
-        //hack to make qeo-c output dir point to qeo-java dir
-        project.exec {
-            commandLine("mkdir", "-p", "../../qeo-c/output/gradle")
-        }
-        project.exec {
-            commandLine("ln", "-s", "../../../qeo-java/qeo-java/output/gradle/javah", "../../qeo-c/output/gradle/javah")
         }
 
         project.exec {

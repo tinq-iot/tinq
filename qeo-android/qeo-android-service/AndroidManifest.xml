@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.tinq.android.service"
+    android:installLocation="auto"
     android:sharedUserId="org.tinq.android.service">
 
     <uses-sdk android:minSdkVersion="14"/>
