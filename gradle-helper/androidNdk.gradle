@@ -1,8 +1,8 @@
 
 
 //Android NDK properties
-ext.androidGccVersion = "4.8"
-ext.androidNdkApi = 9
+ext.androidGccVersion = "4.9"
+ext.androidNdkApi = 14
 ext.androidNdkLocation = System.getProperty('androidNdk') ?: System.env.ANDROID_NDK
 if (!androidNdkLocation) {
     if (System.getProperty("os.arch") == "amd64") {

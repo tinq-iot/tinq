@@ -13,10 +13,10 @@ else
 ifeq ($(TARG_OS), IOS)
 jansson_PARTS_INSTALL       := installed/lib/libjansson.a@$$(libdir/)libjansson.a:644 
 else
-jansson_PARTS_INSTALL       := installed/lib/libjansson.so.4.4.0@$$(libdir/)libjansson.so.4.4.0:644 \
-                               s:libjansson.so.4.4.0@$$(libdir/)libjansson.so.4 \
-                               s:libjansson.so.4.4.0@$$(libdir/)libjansson.so.0 \
-                               s:libjansson.so.4.4.0@$$(libdir/)libjansson.so
+jansson_PARTS_INSTALL       := installed/lib/libjansson.so.4.7.0@$$(libdir/)libjansson.so.4.7.0:644 \
+                               s:libjansson.so.4.7.0@$$(libdir/)libjansson.so.4 \
+                               s:libjansson.so.4.7.0@$$(libdir/)libjansson.so.0 \
+                               s:libjansson.so.4.7.0@$$(libdir/)libjansson.so
 endif
 endif
 
@@ -43,7 +43,7 @@ jansson.builddir :=  $(jansson_PREFIX/)build
 ##>
 
 ##< tarball extraction & compilation
-jansson.tarname        := jansson-2.4
+jansson.tarname        := jansson-2.7
 jansson.srcdir         := $(jansson_PREFIX/)$(jansson.tarname)
 jansson.untar          := $(jansson_PREFIX/)cmw.untar.stamp
 jansson.configure_opts :=
@@ -79,7 +79,7 @@ else
 ifeq ($(TARG_OS), IOS)
 MULTI_TARGET_DEPUTY:= $(jansson_PREFIX/)installed/lib/libjansson.a
 else
-MULTI_TARGET_DEPUTY:= $(jansson_PREFIX/)installed/lib/libjansson.so.4.4.0
+MULTI_TARGET_DEPUTY:= $(jansson_PREFIX/)installed/lib/libjansson.so.4.7.0
 endif
 endif
 
