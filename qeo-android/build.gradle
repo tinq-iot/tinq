@@ -4,7 +4,7 @@
 //ext.BRANCH = ""
 
 ext.artifactoryDeferLoading = true
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
 
 String getQeoGroup(String param, boolean override) {
     String branch = "master"
@@ -45,6 +45,7 @@ subprojects {
             tasks.getConnectedDevices.mustRunAfter startuivm
         }
     }
+    archivesBaseName = archivesBaseName.replaceAll("qeo", "tinq")
 }
 
 task startuivm(type: Exec) {

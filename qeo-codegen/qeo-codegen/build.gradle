@@ -1,12 +1,12 @@
 
 // ext.findbugsHtml = true //uncomment for readable findbugs report. Don't check it in.
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
 
 mainClassName = "com.technicolor.qeo.codegen.Main"
 

@@ -5,7 +5,7 @@
 //execute with "-PserviceClassifier=debug" to use debug service
 //execute with "-PserviceClassifier=release" to use release service (notice you'll have to accept the manifest manually)
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
 
 def testsRoot = project(":qeo-android-tests")
 android {
@@ -39,8 +39,8 @@ afterEvaluate {
 dependencies {
     compile project(':qeo-android')
     compile project(':qeo-android-service-embedded')
-    androidTestCompile group: project.javaGroup, name: 'qeo-java', version: project.javaVersion, classifier: 'tests', ext: "jar"
-    androidTestCompile group: project.javaGroup, name: 'qeo-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
+    androidTestCompile group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'tests', ext: "jar"
+    androidTestCompile group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
 }
 
 

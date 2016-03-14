@@ -6,16 +6,16 @@ ext.javadocExclude = 'org/qeo/android/internal/**'
 ext.findbugsExclude = ["**/org/qeo/android/internal/IServiceQeo**"]
 //ext.findbugsHtml = true //enable this to genereate findbugs html instead of xml for local development. don't push this!
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
 
 android.noDeviceTests = true //no device tests for this project
 
 dependencies {
-	if (System.properties['qeo.src.qeo-java'] == null) {
+	if (System.properties['qeo.src.tinq-java'] == null) {
 		//normal approach
-		compile group: project.javaGroup, name: 'qeo-java-core', version: project.javaVersion
+		compile group: project.javaGroup, name: 'tinq-java-core', version: project.javaVersion
 	}
 	else {
 		//compile dependency from source

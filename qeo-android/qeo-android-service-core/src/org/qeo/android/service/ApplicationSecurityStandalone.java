@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 - Qeo LLC
+ * Copyright (c) 2016 - Qeo LLC
  *
  * The source code form of this Qeo Open Source Project component is subject
  * to the terms of the Clear BSD license.
@@ -14,22 +14,6 @@
 
 package org.qeo.android.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.qeo.android.internal.IServiceQeoCallback;
-import org.qeo.android.service.db.TableManifestMeta;
-import org.qeo.android.service.db.TableManifestRW;
-
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,6 +27,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.content.LocalBroadcastManager;
+
+import org.qeo.android.internal.IServiceQeoCallback;
+import org.qeo.android.service.db.TableManifestMeta;
+import org.qeo.android.service.db.TableManifestRW;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class to contain security information (eg the manifest) from the connected application.
@@ -118,7 +118,7 @@ public class ApplicationSecurityStandalone implements ApplicationSecurity
             // Packages with sharedUserId set in manifest will have their uid concatenated in getNameForUid call
             // What will happen if multiple packages with same sharedUserId make user of Qeo??
             mPkgName = pm.getNameForUid(mUid).split(":")[0];
-            if (mPkgName.equals("org.qeo.android.service")) {
+            if (mPkgName.equals("org.tinq.android.service")) {
                 // special case, will only be triggered by unit tests
                 mAppVersion = 1;
                 mAppLabel = "junit";

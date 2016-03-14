@@ -4,7 +4,7 @@
 
 
     <uses-sdk
-        android:minSdkVersion="9"/>
+        android:minSdkVersion="14"/>
 
     <!-- needed by READ_PHONE_STATE permission? not 100% clear. -->
     <uses-feature

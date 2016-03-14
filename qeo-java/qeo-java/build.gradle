@@ -8,20 +8,16 @@ import java.util.concurrent.Semaphore;
  Keep this line on top of the others!
  */
 project.buildDir = "output/gradle"
-project.ext.kwInjectFile = "qeo-java.kwinject" //override kwinject filename
-project.ext.kwUseJNI = 1
 // ext.findbugsHtml = true //enable this to genereate findbugs html instead of xml for local development. don't push this!
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/emma.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/klocwork.gradle'
+//apply from: rootProject.file('../gradle-helper/emma.gradle')
 apply plugin: 'java'
-apply plugin: 'osgi'
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
 apply plugin: 'eclipse'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/codegen.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidNdk.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactoryVersion.gradle'
+apply from: rootProject.file('../gradle-helper/codegen.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
+apply from: rootProject.file('../gradle-helper/androidNdk.gradle')
+apply from: rootProject.file('../gradle-helper/artifactoryVersion.gradle')
 
 configurations {
     nativeAndroidDebug
@@ -29,9 +25,6 @@ configurations {
     nativeHost
 }
 
-//Set JDK source/target to version 6
-sourceCompatibility=1.6
-targetCompatibility=1.6
 
 eclipse {
     jdt {
@@ -71,61 +64,55 @@ clean.doLast {
 }
 
 
-//define sourceSet for accessControllerTest
-sourceSets {
-    accessControllerTest {
-        java {
-            srcDir 'src/accesscontrollertest/java'
-        }
-        compileClasspath += configurations.compile
-        compileClasspath += files(sourceSets.main.output.classesDir)
-    }
-}
-
-
-
-jar {
-    manifest { // the manifest of the default jar is of type OsgiManifest
-        instruction 'Bundle-Vendor', 'Technicolor'
-        instruction 'Bundle-Description', 'Qeo Bundle'
-        instruction 'Export-Package', 'org.qeo.jni', 'org.qeo'
-        attributes( 'Built-By': 'Gradle-' + gradle.gradleVersion )
-    }
-    exclude "**/accesscontrollertest/**"
-}
-
-task accessControlTest(type: JavaExec) {
-    dependsOn 'accessControllerTestClasses', 'generateBinariesHost'
-    main = "org.qeo.accesscontrollertests.AccessControlTest"
-
-    //add classpaths
-    classpath sourceSets.accessControllerTest.runtimeClasspath
-    classpath configurations.compile
-    classpath files(sourceSets.main.output.classesDir)
-
-    def osArch = System.getProperty("os.arch")
-    def osName = System.getProperty("os.name")
-    systemProperty "java.security.manager", "default" //enable security manager
-    systemProperty "java.security.policy", "src/accesscontrollertest/qeo-java.policy" //specify policy file
-    systemProperty "qeo-java-path", sourceSets.main.output.classesDir //set path to qeo-java in systemproperty. This will be used in the policy file.
-    doFirst {
-        for (i in configurations.compile) {
-            if (i.toString().matches(".*libs/qeo-java-core-.*")) {
-                systemProperty "qeo-java-core-jar", i.toString() //set path to qeo-java-core in systemproperty. This will be used in the policy file.
-            }
-        }
-    }
-    systemProperty "java.library.path", "${buildDir}/binary-host/debug/${osArch}/${osName}" //load native library
-}
-accessControllerTestClasses.dependsOn(classes)
-check.dependsOn(accessControlTest)
-//make sure to run regular unit test before accessControllerTest. Output from regular tests is more convenient in case of problems
-accessControlTest.mustRunAfter(test)
-
-checkstyleAccessControllerTest {
-    configFile = project.file ("$buildDir/checkstyle_test.xml")
-}
-tasks.checkstyleAccessControllerTest.dependsOn('downloadCheckstyleTestConfig')
+////define sourceSet for accessControllerTest
+//sourceSets {
+//    accessControllerTest {
+//        java {
+//            srcDir 'src/accesscontrollertest/java'
+//        }
+//        compileClasspath += configurations.compile
+//        compileClasspath += files(sourceSets.main.output.classesDir)
+//    }
+//}
+//
+//
+//
+//jar {
+//    exclude "**/accesscontrollertest/**"
+//}
+//
+//task accessControlTest(type: JavaExec) {
+//    dependsOn 'accessControllerTestClasses', 'generateBinariesHost'
+//    main = "org.qeo.accesscontrollertests.AccessControlTest"
+//
+//    //add classpaths
+//    classpath sourceSets.accessControllerTest.runtimeClasspath
+//    classpath configurations.compile
+//    classpath files(sourceSets.main.output.classesDir)
+//
+//    def osArch = System.getProperty("os.arch")
+//    def osName = System.getProperty("os.name")
+//    systemProperty "java.security.manager", "default" //enable security manager
+//    systemProperty "java.security.policy", "src/accesscontrollertest/qeo-java.policy" //specify policy file
+//    systemProperty "qeo-java-path", sourceSets.main.output.classesDir //set path to qeo-java in systemproperty. This will be used in the policy file.
+//    doFirst {
+//        for (i in configurations.compile) {
+//            if (i.toString().matches(".*libs/qeo-java-core-.*")) {
+//                systemProperty "qeo-java-core-jar", i.toString() //set path to qeo-java-core in systemproperty. This will be used in the policy file.
+//            }
+//        }
+//    }
+//    systemProperty "java.library.path", "${buildDir}/binary-host/debug/${osArch}/${osName}" //load native library
+//}
+//accessControllerTestClasses.dependsOn(classes)
+//check.dependsOn(accessControlTest)
+////make sure to run regular unit test before accessControllerTest. Output from regular tests is more convenient in case of problems
+//accessControlTest.mustRunAfter(test)
+//
+//checkstyleAccessControllerTest {
+//    configFile = project.file ("$buildDir/checkstyle_test.xml")
+//}
+//tasks.checkstyleAccessControllerTest.dependsOn('downloadCheckstyleTestConfig')
 
 task javah {
     dependsOn classes
@@ -147,6 +134,16 @@ task javah {
         cmdDir = System.env.JAVA_HOME + "/bin/"
     }
 
+    //hack to make qeo-c output dir point to qeo-java dir
+    project.exec {
+        commandLine("mkdir", "-p", "../../qeo-c/output/gradle")
+    }
+    if (!file("../../qeo-c/output/gradle/javah").exists()) {
+        project.exec {
+            commandLine("ln", "-s", "../../../qeo-java/qeo-java/output/gradle/javah", "../../qeo-c/output/gradle/javah")
+        }
+    }
+
     doFirst {
         ext.destDir.mkdir()
         // Calculate the classpath
@@ -164,7 +161,6 @@ task javah {
         }
     }
 }
-kwinject.dependsOn javah
 
 task generateLdver {
     dependsOn javah
@@ -241,8 +237,7 @@ def getOutputDirs(def target) {
 }
 
 def buildDirHost = file("${buildDir}/binary-host/")
-def buildDirOSGiHost = file("${buildDir}/binary-osgi-host/")
-// This task generates the binaries for Host (both debug and release) and OSGIhost (release).
+// This task generates the binaries for Host (both debug and release).
 task generateBinariesHost {
     description "Generate native binaries for HOSTLINUX"
     dependsOn javah, generateLdver
@@ -252,7 +247,6 @@ task generateBinariesHost {
     def args = ["recursive_install", "libdir=${osArch}/${osName}"]
     inputs.dir cInputDirs
     outputs.dir "${buildDirHost}"
-    outputs.dir "${buildDirOSGiHost}"
     outputs.dir getOutputDirs("HOSTLINUX")
 
     doFirst {
@@ -286,33 +280,13 @@ task generateBinariesHost {
                 sem.release();
             }
         }
-        def OSGiOutPutDir = "${buildDir}/OSGi"
-        // workaround for OSGi, copy over JNI headers since we're overwriting the OUTPUT_PREFIX
-        copy {
-            from "${buildDir}"
-            into "${OSGiOutPutDir}/gradle"
-            include('javah/*')
-        }
-        Runnable rOSGiRelease = new Runnable() {
-            public void run() {
-                // release
-                try {
-                    runMake("INSTALL_DIR=${buildDirOSGiHost}/release", "OUTPUT_PREFIX=${OSGiOutPutDir}", "OSGI=1", *args)
-                } catch (Exception e) {
-                    ex = e;
-                }
-                sem.release();
-            }
-        }
         if (System.properties['qeo.parallelBuild.enabled'] == null || System.properties['qeo.parallelBuild.enabled'] == "true") {
             //parallel build enabled (default)
             logger.info("Building in parallel (use -Dqeo.parallelBuild.enabled=false to disable)")
             new Thread(rDebug).start();
             Thread.sleep(2000); //make can give a conflict during startup, so delay the next process a bit
             new Thread(rRelease).start();
-            Thread.sleep(2000); //make can give a conflict during startup, so delay the next process a bit
-            new Thread(rOSGiRelease).start();
-            sem.acquire(3);
+            sem.acquire(2);
             if (ex != null) {    
                 throw ex
             }
@@ -327,31 +301,6 @@ task generateBinariesHost {
             if (ex != null) {    
                 throw ex
             }
-            rOSGiRelease.run();
-            if (ex != null) {    
-                throw ex
-            }
-        }
-    }
-}
-
-
-// This task generates the binaries for MIPS (both debug and release).
-task generateBinariesMips {
-    dependsOn javah, generateLdver
-    def binBuildDir = file("$buildDir/binary/")
-    def args = ["E=REVG_MIPSLINUX", "OSGI=1", "DESTDIR=$binBuildDir"]
-    inputs.dir cInputDirs
-    outputs.dir getOutputDirs("REVG_MIPSLINUX")
-    outputs.dir "${binBuildDir}/mips"
-    doFirst() {
-        // debug
-        runMake("libdir=mips/Linux/debug", "dds_LOG_FILE=1", "DEBUG=1", *args, "recursive_install")
-        // release
-        runMake("libdir=mips/Linux", *args, "qeo-java.tgz")
-        copy {
-            from tarTree('output/qeo-java_REVG_MIPSLINUX.tgz')
-            into binBuildDir
         }
     }
 }
@@ -489,34 +438,6 @@ task jarNativeHost(type: Jar) {
         into "native/${osArch}/${osName}/debug"
     }
     classifier 'native-host'
-}
-
-// This is the jar with the binary shared objects for OSGi on host
-task jarOSGiHost(type: Jar) {
-    dependsOn generateBinariesHost
-    def osArch = System.getProperty("os.arch")
-    def osName = System.getProperty("os.name")
-    osName = osName.replaceAll(" ", "")
-    from (fileTree("${buildDirOSGiHost}/release/")) {
-        include "${osArch}/${osName}/**/*JNI.so*"
-        into 'native'
-        rename '(\\.\\d+)*$', ''
-    }
-    classifier 'OSGi-host'
-}
-
-// This is the jar with the binary shared objects for MIPS (both debug and release)
-task jarNativeMips(type: Jar) {
-    dependsOn generateBinariesMips
-    def osArch = System.getProperty("os.arch")
-    def osName = System.getProperty("os.name")
-    osName = osName.replaceAll(" ", "")
-    from (fileTree("$buildDir/binary/")) {
-        include "mips/Linux/**/*JNI.so*"
-        into 'native'
-        rename '(\\.\\d+)*$', ''
-    }
-    classifier 'native-mips'
 }
 
 //this is the jar with native files for Android (release only)
@@ -681,37 +602,11 @@ task assembleAndroid {
     }
 }
 
-task assembleMips {
-    group "build"
-    description "Build and package native libraries for MIPS"
-    dependsOn jarNativeMips
-    doFirst {
-        artifacts {
-            archives jarNativeMips
-        }
-    }
-}
-
-task assembleOSGi {
-    group "build"
-    description "Build and package native libraries for OSGi"
-    dependsOn jarOSGiHost
-    doFirst {
-        artifacts {
-            archives jarOSGiHost
-        }
-    }
-}
-
 project.tasks.assemble.dependsOn(assembleHost)
 project.tasks.assemble.dependsOn(assembleAndroid)
-project.tasks.assemble.dependsOn(assembleMips)
-project.tasks.assemble.dependsOn(assembleOSGi)
 if (tasks.findByPath("uploadOverlay") != null) {
     tasks.uploadOverlay.mustRunAfter assembleHost
     tasks.uploadOverlay.mustRunAfter assembleAndroid
-    tasks.uploadOverlay.mustRunAfter assembleMips
-    tasks.uploadOverlay.mustRunAfter assembleOSGi
 }
 
 dependencies {
@@ -719,8 +614,8 @@ dependencies {
     testCompile 'junit:junit:3.8.2'
 
     //to be able to generate code for unit tests
-    generated "org.qeo:qeo-qdm:${project.qeoVersion}:@zip"
-    generated "org.qeo:qeo-qdm:${project.qeoVersion}:applications@zip"
+    generated "org.tinq:tinq-qdm:${project.qeoVersion}:@zip"
+    generated "org.tinq:tinq-qdm:${project.qeoVersion}:applications@zip"
 }
 
 artifacts {

@@ -9,12 +9,12 @@ import org.gradle.api.tasks.TaskAction
 apply plugin: 'checkstyle'
 
 
-def checkstyleURL = 'file://' + (System.properties['qeoGradleHelper'] ?: '') + '/technicolor_checkstyle_rules.xml'
+def checkstyleURL = 'file://' + rootProject.file("../gradle-helper") + '/technicolor_checkstyle_rules.xml'
 if (project.hasProperty('isSDKSample')){
-    checkstyleURL = 'file://' + (System.properties['qeoGradleHelper'] ?: '') + '/technicolor_checkstyle_sample_rules.xml'
+    checkstyleURL = 'file://' + rootProject.file("../gradle-helper") + '/technicolor_checkstyle_sample_rules.xml'
 }
-def checkstyleTestURL = 'file://' + (System.properties['qeoGradleHelper'] ?: '') + '/technicolor_checkstyle_rules_test.xml'
-def checkstyleAidlURL = 'file://' + (System.properties['qeoGradleHelper'] ?: '') + '/technicolor_checkstyle_rules_aidl.xml'
+def checkstyleTestURL = 'file://' + rootProject.file("../gradle-helper") + '/technicolor_checkstyle_rules_test.xml'
+def checkstyleAidlURL = 'file://' + rootProject.file("../gradle-helper") + '/technicolor_checkstyle_rules_aidl.xml'
 
 // Only do this for android. Checkstyle works out of the box for java
 if (project.hasProperty('android')) {

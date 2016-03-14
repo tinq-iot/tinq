@@ -2,15 +2,15 @@
 //For generating findbugs HTML report execute with "gradle -PfindbugsHtml=true"
 ext.androidLibrary = true
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidInstallerTools.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactDownloader.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/codegen.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactoryVersion.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/dependencyWriter.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidApklib.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/androidInstallerTools.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
+apply from: rootProject.file('../gradle-helper/artifactDownloader.gradle')
+apply from: rootProject.file('../gradle-helper/codegen.gradle')
+apply from: rootProject.file('../gradle-helper/artifactoryVersion.gradle')
+apply from: rootProject.file('../gradle-helper/dependencyWriter.gradle')
+apply from: rootProject.file('../gradle-helper/androidApklib.gradle')
 
 
 artifactDownloadUnzip {
@@ -31,12 +31,12 @@ android {
                 srcFile "AndroidManifestDebug.xml"
             }
             jniLibs {
-                srcDirs = ["${artifactDownloadUnzip.outputDir}/qeo-java/native-android-debug/lib"]
+                srcDirs = ["${artifactDownloadUnzip.outputDir}/tinq-java/native-android-debug/lib"]
             }
         }
         release {
             jniLibs {
-                srcDirs = ["${artifactDownloadUnzip.outputDir}/qeo-java/native-android/lib"]
+                srcDirs = ["${artifactDownloadUnzip.outputDir}/tinq-java/native-android/lib"]
             }
         }
     }
@@ -44,7 +44,7 @@ android {
 
 //afterEvaluate {
 //    packageDebugJniLibs {
-//        from("${artifactDownloadUnzip.outputDir}/qeo-java/native-android-debug/lib").include("**/*")
+//        from("${artifactDownloadUnzip.outputDir}/tinq-java/native-android-debug/lib").include("**/*")
 //    }
 //}
 
@@ -62,7 +62,7 @@ afterEvaluate {
 
 apklibCopyEclipseLibs {
     dependsOn(artifactDownloadUnzip)
-    from "${artifactDownloadUnzip.outputDir}/qeo-java/native-android/lib"
+    from "${artifactDownloadUnzip.outputDir}/tinq-java/native-android/lib"
 }
 
 android {
@@ -84,10 +84,10 @@ task zipDependencyList(type: Zip) {
 dependencies {
 
     compile project(":qeo-android-core")
-    compile     group: project.javaGroup, name: 'qeo-java',         version: project.javaVersion
+    compile     group: project.javaGroup, name: 'tinq-java',         version: project.javaVersion
 
     //qdms for codegen
-    generated "${project.qeoGroup}:qeo-qdm:${project.qeoVersion}@zip"
+    generated "${project.qeoGroup}:tinq-qdm:${project.qeoVersion}@zip"
 
     //oauth and rest
     def googleHttpLibsVersion = "1.19.0"
@@ -101,10 +101,10 @@ dependencies {
     //android support V4 library
     compile project.latestSupportV4
 
-    downloadUnzip group: project.javaGroup, name: 'qeo-java',         version: project.javaVersion, classifier: 'native-android', ext: "jar"
-    downloadUnzip group: project.javaGroup, name: 'qeo-java',         version: project.javaVersion, classifier: 'native-android-debug', ext: "jar"
-    downloadUnzip group: project.javaGroup, name: 'qeo-java',         version: project.javaVersion, classifier: 'native-android-symbols', ext: "jar"
-    androidTestCompile group: project.javaGroup, name: 'qeo-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
+    downloadUnzip group: project.javaGroup, name: 'tinq-java',         version: project.javaVersion, classifier: 'native-android', ext: "jar"
+    downloadUnzip group: project.javaGroup, name: 'tinq-java',         version: project.javaVersion, classifier: 'native-android-debug', ext: "jar"
+    downloadUnzip group: project.javaGroup, name: 'tinq-java',         version: project.javaVersion, classifier: 'native-android-symbols', ext: "jar"
+    androidTestCompile group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
 }
 
 ext.defaultExtension = "aar"

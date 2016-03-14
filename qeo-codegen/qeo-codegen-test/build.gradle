@@ -151,8 +151,8 @@ test {
 
 dependencies {
     testCompile project(":qeo-codegen")
-    testCompileC "org.qeo:qeo-native:${version}:HOSTLINUX@tgz" //hostlinux so files
-    testCompileC "org.qeo:qeo-native:${version}:@tgz" //headers
-    testCompileJava "org.qeo:qeo-java-core:${version}" //qeo-java-core
+    testCompileC "org.tinq:tinq-native:${version}:HOSTLINUX@tgz" //hostlinux so files
+    testCompileC "org.tinq:tinq-native:${version}:@tgz" //headers
+    testCompileJava "org.tinq:tinq-java-core:${version}" //qeo-java-core
 }
 

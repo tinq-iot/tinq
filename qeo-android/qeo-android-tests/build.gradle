@@ -2,8 +2,8 @@
 //execute with "-PserviceClassifier=debug" to use debug service
 //execute with "-PserviceClassifier=release" to use release service (notice you'll have to accept the manifest manually)
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
 
 apply from: "serviceInstaller.gradle"
 
@@ -36,12 +36,12 @@ task jarAndroidClasses(type: Jar) {
 
 dependencies {
     compile project(':qeo-android')
-    androidTestCompile group: project.javaGroup, name: 'qeo-java', version: project.javaVersion, classifier: 'tests', ext: "jar"
-    androidTestCompile group: project.javaGroup, name: 'qeo-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
+    androidTestCompile group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'tests', ext: "jar"
+    androidTestCompile group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'testlib', ext: "jar"
 }
 
-File testprogramApk = file("${buildDir}/outputs/apk/qeo-android-tests-debug-unaligned.apk")
-File testsApk = file("${buildDir}/outputs/apk/qeo-android-tests-debug-androidTest-unaligned.apk")
+File testprogramApk = file("${buildDir}/outputs/apk/tinq-android-tests-debug-unaligned.apk")
+File testsApk = file("${buildDir}/outputs/apk/tinq-android-tests-debug-androidTest-unaligned.apk")
 
 artifacts {
     archives jarAndroidClasses //publish classes

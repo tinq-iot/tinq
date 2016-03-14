@@ -2,8 +2,8 @@
 //use release service instead of unittest version
 ext.serviceClassifier = null //no classifier means the "release" build is used
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/android.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
+apply from: rootProject.file('../gradle-helper/android.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
 apply from: project(":qeo-android-tests").file("serviceInstaller.gradle")
 
 configurations {
@@ -32,7 +32,7 @@ installCertFile {
 
 dependencies {
     compile project(':qeo-android')
-    downloadTestlib group: project.javaGroup, name: 'qeo-java', version: project.javaVersion, classifier: 'testlib'
+    downloadTestlib group: project.javaGroup, name: 'tinq-java', version: project.javaVersion, classifier: 'testlib'
 }
 
 

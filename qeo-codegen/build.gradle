@@ -1,10 +1,11 @@
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
 
 
 subprojects {
-	group = "org.qeo.tools"
+	group = "org.tinq.tools"
 	version = project.qeoVersion
+    archivesBaseName = archivesBaseName.replaceAll("qeo", "tinq")
 }
 
 

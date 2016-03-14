@@ -307,6 +307,6 @@ task generateTestTypes(type: JavaExec) {
 
 dependencies {
     //codegenerator
-    generated "org.qeo.tools:qeo-codegen:${project.qeoVersion}:@zip"
+    generated "org.tinq.tools:tinq-codegen:${project.qeoVersion}:@zip"
 }
 

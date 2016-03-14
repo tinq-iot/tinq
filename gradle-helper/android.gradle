@@ -6,8 +6,8 @@
 
 //android-gradle does not together with artifactory plugin for publishing pom files, force it.
 ext.artifactoryGenerateUploadPom = true
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactoryPom.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/androidInstallerTools.gradle'
+apply from: rootProject.file('../gradle-helper/artifactoryPom.gradle')
+apply from: rootProject.file('../gradle-helper/androidInstallerTools.gradle')
 
 //latest version of the supportV4 library
 ext.latestSupportV4 = [group: "com.android.support", name: "support-v4", version: "22.2.0"]
@@ -16,7 +16,7 @@ ext.adb = new File(System.env.ANDROID_HOME ?: "/ANDROID_HOME/NOT/DEFINED/", "pla
 if (!adb.isFile()) {
     throw new GradleException("ANDROID_HOME is not correct, can't find ${adb}")
 }
-ext.androidBuildToolsVersion = "22.0.1"
+ext.androidBuildToolsVersion = "23.0.2"
 ext.androidSdkVersion = 22
 
 //
@@ -183,6 +183,8 @@ afterEvaluate {
         //project has no device tests
         connectedCheck.enabled = false
         connectedAndroidTest.enabled = false
+        assembleDebugAndroidTest.enabled = false
+        connectedAndroidTestDebug.enabled = false
         takeBugReportOnFailure.enabled = false
         if (tasks.findByPath("preDexDebugTest") != null) {
             preDexDebugTest.enabled = false
@@ -283,7 +285,8 @@ else {
 
 
 //task to execute a single unit test
-task singleTest(type: Exec) {
+task singleTest() {
+    dependsOn getConnectedDevices
     afterEvaluate {
         dependsOn "installDebugAndroidTest"
         if (project.hasProperty('android') && (!(project.ext.has('androidLibrary') && project.ext.androidLibrary))) {
@@ -307,7 +310,13 @@ task singleTest(type: Exec) {
         logger.debug "Manifest package: ${testPackage}"
         logger.debug "Manifest runner: ${runner}"
 
-        commandLine adb, "shell", "am", "instrument", "-e", "class", System.properties['test.single'], "-w", "${testPackage}.test/${runner}"
+        project.connectedDevices.each { device ->
+            logger.info("[${device}] Starting test")
+            exec {
+                executable = adb
+                args = ["-s" , device, "shell", "am", "instrument", "-e", "class", System.properties['test.single'], "-w", "${testPackage}.test/${runner}"]
+            }
+        }
     }
 }
 
@@ -319,7 +328,7 @@ task takeBugReportOnFailure() {
         enabled = true
     }
     doLast {
-        if (connectedAndroidTest.success) {
+        if (connectedAndroidTestDebug.success) {
             logger.info("connectedCheck succeeded, no need to take bugreport")
         }
         else {
@@ -339,7 +348,7 @@ task takeBugReportOnFailure() {
 }
 
 afterEvaluate {
-    connectedAndroidTest {
+    connectedAndroidTestDebug {
         ext.success = false
         doLast {
             success = true
@@ -530,7 +539,7 @@ if (enableUITests) {
 }
 
 // Include the eclipse specific generation files.
-apply from: (System.properties['qeoGradleHelper'] ? System.properties['qeoGradleHelper'] : '') + '/androidEclipse.gradle'
+apply from: rootProject.file('../gradle-helper/androidEclipse.gradle')
 
 dependencies {
     if (enableUITests) { 

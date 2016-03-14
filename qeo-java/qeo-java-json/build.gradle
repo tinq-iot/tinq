@@ -3,13 +3,8 @@ apply plugin: 'eclipse'
 
 // ext.findbugsHtml = true //enable this to genereate findbugs html instead of xml for local development. don't push this!
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/findbugs.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/checkstyle.gradle'
-
-
-//Set JDK source/target to version 6
-sourceCompatibility=1.6
-targetCompatibility=1.6
+apply from: rootProject.file('../gradle-helper/findbugs.gradle')
+apply from: rootProject.file('../gradle-helper/checkstyle.gradle')
 
 eclipse {
     jdt {

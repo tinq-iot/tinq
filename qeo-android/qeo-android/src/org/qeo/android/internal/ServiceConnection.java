@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 - Qeo LLC
+ * Copyright (c) 2016 - Qeo LLC
  *
  * The source code form of this Qeo Open Source Project component is subject
  * to the terms of the Clear BSD license.
@@ -14,21 +14,21 @@
 
 package org.qeo.android.internal;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Logger;
+import android.app.Application;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
 
 import org.qeo.android.QeoAndroid;
 import org.qeo.android.exception.QeoServiceNotFoundException;
 import org.qeo.android.exception.QeoServiceTooOldException;
 import org.qeo.exception.QeoException;
 
-import android.app.Application;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.os.IBinder;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * The service connection is a singleton that represents the connection between Qeo library for Android and Qeo service.
@@ -40,8 +40,8 @@ public final class ServiceConnection
     private static final String AIDL_INTERFACE_VERSION = AidlConstants.AIDL_SERVICE_ACTION_V1;
     private static final Logger LOG = Logger.getLogger("ServiceConnection");
     private static final Object LOCK = new Object();
-    private static final String SERVICE_QEO = QeoAndroid.QEO_SERVICE_PACKAGE + ".QeoService";
-    private static final String SERVICE_VERSION = QeoAndroid.QEO_SERVICE_PACKAGE + ".QeoServiceVersion";
+    private static final String SERVICE_QEO = QeoAndroid.QEO_SERVICE_PREFIX + ".QeoService";
+    private static final String SERVICE_VERSION = QeoAndroid.QEO_SERVICE_PREFIX + ".QeoServiceVersion";
     private static ServiceConnection sInstance = null;
 
     private final Context mContext;
@@ -198,7 +198,7 @@ public final class ServiceConnection
     void addListener(ServiceConnectionListener listener)
     {
         LOG.fine("ServiceConnection.addListener() called");
-        synchronized (LOCK) {
+        synchronized (mListeners) {
             mListeners.add(listener);
             if (mConnected) {
                 listener.onConnected();
@@ -224,7 +224,7 @@ public final class ServiceConnection
     void removeListener(ServiceConnectionListener listener)
     {
         LOG.fine("ServiceConnection.removeListener() called");
-        synchronized (LOCK) {
+        synchronized (mListeners) {
             mListeners.remove(listener);
             if (mListeners.isEmpty()) {
                 close();
@@ -234,15 +234,15 @@ public final class ServiceConnection
 
     /**
      * Getter for the IServiceQeo interface object used to communicate with the Qeo service.
-     * 
+     *
+     * @throws ServiceDisconnectedException If the Qeo service is not connected.
      * @return the IServiceQeo object
      */
-    public IServiceQeoV1 getProxy()
+    public IServiceQeoV1 getProxy() throws ServiceDisconnectedException
     {
         synchronized (LOCK) {
             if (!mConnected) {
-                throw new IllegalStateException(
-                    "Qeo service not yet initialized. Wait until the QeoCallback is called please");
+                throw new ServiceDisconnectedException();
             }
             return mServiceQeo;
         }
@@ -355,10 +355,10 @@ public final class ServiceConnection
                 mServiceQeo = IServiceQeoV1.Stub.asInterface(service);
 
                 mConnected = true;
-                for (final ServiceConnectionListener listener : mListeners) {
-                    listener.onConnected();
-                }
                 LOG.fine("Service connection established");
+            }
+            for (final ServiceConnectionListener listener : mListeners) {
+                listener.onConnected();
             }
         }
     };

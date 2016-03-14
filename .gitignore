@@ -12,9 +12,15 @@ debian/files
 qeo-c/qeo-c/install/
 qeo-c-import/miniupnpc/miniupnpcstrings.h
 qeo-c/qeo-forwarder/install/
-qeo-codegen/qeo-codegen/build
-qeo-codegen/qeo-codegen-test/build
+qeo-codegen/qeo-codegen/build/
+qeo-codegen/qeo-codegen-test/build/
+qeo-android/debug.keystore
+*.swp
 .gradle
 *.swp
 build/
+.tdds_log_*
+.idea
+local.properties
+*.iml
 

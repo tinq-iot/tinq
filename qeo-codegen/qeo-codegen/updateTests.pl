@@ -2,12 +2,12 @@
 # Do not use this script directly, instead run gradle generateTestCode
 use strict;
 
-my $version = "0.20.0-SNAPSHOT";
+my $version = "1.1.1-SNAPSHOT";
 
 sub generate($$)
 {
 	my ($folder, $qdm) = @_;
-	my $jar = "build/libs/qeo-codegen-$version-executable.jar";
+	my $jar = "build/libs/tinq-codegen-$version-executable.jar";
     print "Generating C files for $qdm\n";
 	`java -jar $jar -lc -o $folder/c $qdm`;
 	print "Generating java files for $qdm\n";
