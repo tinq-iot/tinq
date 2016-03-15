@@ -91,7 +91,7 @@ override_dh_auto_install:
 	cp qeo-c/qeo-forwarder/install/usr/lib/libminiupnpc.so ${TINQ-FORWARDER_INSTALL}/usr/lib
 	#install codegen
 	mkdir -p ${TINQ-CODEGEN_INSTALL}/usr/share/java
-	cp qeo-codegen/qeo-codegen/build/libs/qeo-codegen-*-executable.jar ${TINQ-CODEGEN_INSTALL}/usr/share/java/tinq-codegen.jar
+	cp qeo-codegen/qeo-codegen/build/libs/tinq-codegen-*-executable.jar ${TINQ-CODEGEN_INSTALL}/usr/share/java/tinq-codegen.jar
 	mkdir -p ${TINQ-CODEGEN_INSTALL}/usr/bin
 	cp qeo-codegen/qeo-codegen/tinq-codegen ${TINQ-CODEGEN_INSTALL}/usr/bin
 
