@@ -7,7 +7,7 @@
 */
 project.buildDir = "output/gradle"
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactory.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
 
 subprojects {
     group = project.qeoGroup

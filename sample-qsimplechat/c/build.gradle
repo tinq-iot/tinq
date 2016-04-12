@@ -2,10 +2,9 @@
 version = qeoVersion
 //ext.cSdkSampleDebug=true
 
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/klocwork.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/mwbuild.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/CSDKSample.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/codegen.gradle'
+apply from: rootProject.file('../gradle-helper/mwbuild.gradle')
+apply from: rootProject.file('../gradle-helper/CSDKSample.gradle')
+apply from: rootProject.file('../gradle-helper/codegen.gradle')
 
 generateTypes {
 	ext.language = "c"
@@ -23,6 +22,6 @@ clean.doLast {
 
 dependencies {
     //qdms for codegen
-    generated "org.qeo:qeo-qdm:${project.qeoVersion}:samples@zip"
+    generated "org.tinq:tinq-qdm:${project.qeoVersion}:samples@zip"
 }
 

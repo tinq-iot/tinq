@@ -20,7 +20,7 @@ if (hasProperty("disableRpi") && getProperty("disableRpi")) {
 }
 
 //enable pom pushing to artifactory
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/artifactoryPom.gradle'
+apply from: rootProject.file('../gradle-helper/artifactoryPom.gradle')
 
 def srcDir = files("src")
 File srcFileHost = new File("${buildDir}/qeo-sdk/c/sdk.makefile")
@@ -232,7 +232,7 @@ dependencies {
         }
     }
     //qeo types
-    downloadQeoTypes "org.qeo:qeo-qdm-c:${project.qeoVersion}:headers@tgz"
+    downloadQeoTypes "org.tinq:tinq-qdm-c:${project.qeoVersion}:headers@tgz"
 }
 
 artifacts {

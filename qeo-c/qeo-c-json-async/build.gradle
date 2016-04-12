@@ -1,2 +1,1 @@
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/klocwork.gradle'
-apply from: (System.properties['qeoGradleHelper'] ?: '') + '/mwbuild.gradle'
+apply from: rootProject.file('../gradle-helper/mwbuild.gradle')

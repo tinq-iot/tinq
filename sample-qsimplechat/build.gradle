@@ -1,6 +1,6 @@
 //The artifactory.gradle file will be used as a helper function in order to use the functionality of artifactory.
 ext.artifactoryDeferLoading = true
-apply from: (System.properties['qeoGradleHelper'] ? System.properties['qeoGradleHelper'] : '') + '/artifactory.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
 
 subprojects {
     version = project.qeoVersion

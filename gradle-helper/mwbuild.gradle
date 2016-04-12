@@ -8,8 +8,8 @@ Keep this line on top of the others!
 project.buildDir = "output/gradle"
 project.ext.tarDir = new File("$buildDir/tarDir")
 
-apply from: (System.properties['qeoGradleHelper'] ? System.properties['qeoGradleHelper'] : '') + '/artifactory.gradle'
-apply from: (System.properties['qeoGradleHelper'] ? System.properties['qeoGradleHelper'] : '') + '/androidNdk.gradle'
+apply from: rootProject.file('../gradle-helper/artifactory.gradle')
+apply from: rootProject.file('../gradle-helper/androidNdk.gradle')
 
 /* Store makeCmd and makeEnvironment project properties to enable tasks in other build files to use it */
 project.ext.makeCmd = ["make", "-f", "Makefile_component", "PROJECT_VERSION=" + (project.properties["displayVersion"]?:project.version)]
